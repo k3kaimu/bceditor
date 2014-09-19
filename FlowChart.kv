@@ -1,0 +1,120 @@
+#:kivy 1.8.0
+#: import Python3Lexer pygments.lexers.Python3Lexer
+
+<LoadDialog>:
+    filechooser: filechooser
+
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+
+<SaveDialog>:
+    filechooser: filechooser
+    textinput: textinput
+
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+
+        TextInput:
+            id: textinput
+            size_hint_y: None
+            height: 30
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Save"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+
+<FlowChart>:
+    viewer: viewer
+    blockList: blockList
+    execButton: execButton
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            FlowChartViewer:
+                id: viewer
+                size: self.size
+                yBias: 100
+                outlabel: outlabel
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_x: None
+                width: 200
+
+                Label:
+                    text: "Tile"
+                    size_hint_y: None
+                    height: 50
+
+                BlockListView:
+                    id: blockList
+                    size_hint: 1, 3
+
+                StackLayout:
+                    orientattion: 'tb-lr'
+                    padding: 10
+                    space: 5
+                    size_hint: 1, 1
+
+                    ExecButton:
+                        id: execButton
+                        text: "Execute"
+                        mapInstance: viewer
+                        width: 50
+                        size_hint: .3, .3
+                    SaveButton:
+                        text: "Save"
+                        mapInstance: viewer
+                        size_hint: .3, .3
+                    LoadButton:
+                        text: "Load"
+                        mapInstance: viewer
+                        size_hint: .3, .3
+                    RestartButton:
+                        text: "restart"
+                        execButton: execButton
+                        mapInstance: viewer
+                        width: 50
+                        size_hint: .3, .3
+
+        TextInput:
+            id: outlabel
+            text: ""
+            size_hint_y: None
+            size_hint_x: None
+            halign: 'center'
+            valign: 'top'
+            width: root.width
+            height: 100
+            background_color: 0.8, 0.8, 0.8, 1
+            readonly: True
